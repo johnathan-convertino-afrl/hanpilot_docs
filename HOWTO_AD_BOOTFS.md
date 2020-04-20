@@ -110,7 +110,7 @@ Requirements:
     - remove the dts version and chosen fields, shown below.
     - save the edited file.
     
-    ```
+  ```
     /dts-v1/;
     
     chosen {
@@ -118,6 +118,7 @@ Requirements:
       early-release-fpga-config;
     };
   ```
+  
   
 6. Enter the git folder.
     - cd path/to/your/folder/git
