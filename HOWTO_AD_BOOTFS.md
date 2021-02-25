@@ -14,8 +14,8 @@ Results:
 
 Requirements:
 
-* Ubuntu 18.04 (recommended, can be done in other Linux based OS).
-* Quartus Prime Standard 18.1.0
+* Ubuntu 20.04 (recommended, can be done in other Linux based OS).
+* Quartus Prime Standard 19.4.0
 * arm-linux-gnueabihf-
 * make
 * dtc
@@ -23,9 +23,10 @@ Requirements:
   <div style="page-break-after: always;"></div>
 
 ### Document Version
-* v1.2 - 04/20/20 - Updated for hanpilot.
+* v2.0 - 02/22/21 - Updated Quartus Prime Standard 19.4.0
 
 #### Document History
+* ~~v1.2~~ - 04/20/20 - Updated for hanpilot.
 * ~~v1.1~~ - 01/18/20 - Updated markdown formatting.
 * ~~v1.0~~ - 12/01/18 - Tested working version of the document.
 * ~~v0.XX~~ Untested document version.
@@ -53,6 +54,7 @@ Requirements:
 * [Intel mkpimage reference](https://www.intel.com/content/www/us/en/programmable/documentation/lro1402536290550/lro1436891680025/lro1436891703860.html)
 * [Rocketboards preloader/uboot reference](https://rocketboards.org/foswiki/Documentation/PreloaderUbootCustomization131)
 * [Rocketboards preloader/uboot build for a10soc](https://rocketboards.org/foswiki/Documentation/A10GSRDGeneratingUBootAndUBootDeviceTree)
+* [Rocketboards preloader/uboot build updated for non-embedded build](https://rocketboards.org/foswiki/Documentation/BuildingBootloader#Arria_10_SoC_45_Boot_from_SD_Card)
 
   <div style="page-break-after: always;"></div>
 
@@ -77,14 +79,14 @@ Requirements:
 3. Checkout the HDL repo that matches your version of vivado.
     - git checkout master
 4. Build the project needed using make.
-    - make -C projects/adrv9371x/hanpilot/
+    - make adrv9371x.hanpilot
 5. Wait for make to finish executing the build.
 6. Navigate to projects/adrv9371x/hanpilot/output_files
     - cd projects/adrv9371x/hanpilot/output_files
 7. Run the quartus convert programming command
     - quartus_cpf -c --hps -o bitstream_compression=on adrv9371x_hanpilot.sof hanpilot.rbf
 8. Copy the rbf files to the uboot directory.
-    - cp adrv9371x_hanpilot.* /your/path/of/git/u-boot-socfpga
+    - cp hanpilot.*.rbf /your/path/of/git/u-boot-socfpga
 10. Move to uboot folder(see Build uboot for obtaining the source).
   - cd /your/path/of/git/u-boot-socfpga
 11. Create itb file for uboot to use for fpga programming.
@@ -97,48 +99,27 @@ Requirements:
 ### Build uboot
 [Back to TOC](#Table-of-Contents)
 
-1. Navigate to the top level of the analog devices build.
-    - cd /your/git/path/hdl/project/adrv9371x/hanpilot
-2. Run the SoC Embedded Command shell script in a terminal.
-    - /path/to/quartus/std/18.1/embedded/embedded_command_shell.sh
-3. Create a software directory.
-    - mkdir -p software/bootloader
-4. Create a bsp project.
-    - bsp-create-settings --type uboot --bsp-dir software/bootloader --preloader-settings-dir "hps_isw_handoff" --settings software/bootloader/settings.bsp
-5. Edit the generated dts file.
-    - nano software/bootloader/devicetree.dts
-    - remove the dts version and chosen fields, shown below.
-    - save the edited file.
-    
-  ```
-    /dts-v1/;
-    
-    chosen {
-      cff-file = "socfpga.rbf";	/* Bootloader setting: uboot.rbf_filename */
-      early-release-fpga-config;
-    };
-  ```
-  
-  
-6. Enter the git folder.
+1. Enter the git folder.
     - cd path/to/your/folder/git
-7. Clone uboot-altera
+2. Clone uboot-altera
     - git clone https://github.com/johnathan-convertino-afrl/u-boot-socfpga.git
-8. Checkout the socfpga_v2019.10 branch
-    - git checkout socfpga_v2019.10
-9. Copy the device tree generated into uboot.
-    - cp /your/git/path/hdl/project/adrv9371x/hanpilot/software/bootloader/devicetree.dts arch/arm/dts/socfpga_arria10_hanpilot_sdmmc_handoff.dtsi
-10. Configure uboot with make
+3. Enter the u-boot-socfpga folder.
+    - cd u-boot-socfpga
+3. Checkout the socfpga_v2020.07 branch
+    - git checkout socfpga_v2020.07
+4. Set your cross compiler
+    - export CROSS_COMPILE=arm-linux-gnueabihf-
+5. Set you architecture
+    - export ARCH=arm
+6. Configure uboot with make
     - make socfpga_arria10_hanpilot_defconfig
-11. Make the project
+7. Convert hps.xml file to include file used by the device tree.
+    - ./arch/arm/mach-socfpga/qts-filter-a10.sh /path/to/ad_hdl/project/hanpilot/hps_isw_handoff/hps.xml arch/arm/dts/socfpga_arria10_hanpilot_sdmmc_handoff.h
+7. Make the project
     - make -j$(nproc)
-12. Create a image with a header BootROM will recognize.
-    - mkpimage -hv 1 -o spl/spl_w_dtb-mkpimage.bin spl/u-boot-spl-dtb.bin spl/u-boot-spl-dtb.bin spl/u-boot-spl-dtb.bin spl/u-boot-spl-dtb.bin
-13. Copy the needed files to the bootfs folder.
+8. Copy the needed files to the bootfs folder.
     - cp u-boot.img /path/to/your/bootfs
-    - cp spl/u-boot-spl-dtb.bin /path/to/your/bootfs
-14. Exit embedded shell
-    - exit
+    - cp spl/u-boot-splx4.sfp /path/to/your/bootfs
 
   <div style="page-break-after: always;"></div>
 
@@ -158,7 +139,7 @@ Requirements:
 6. Setup the configuration.
     - make socfpga_adi_hanpilot_defconfig
 7. Build the kernel.
-    - make -j8 zImage
+    - make -j$(nproc) zImage
 8. Once completed, copy the kernel to your bootfs folder.
     - cp arch/arm/boot/zImage /path/to/your/bootfs/
 
