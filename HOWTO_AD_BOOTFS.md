@@ -15,7 +15,7 @@ Results:
 Requirements:
 
 * Ubuntu 20.04 (recommended, can be done in other Linux based OS).
-* Quartus Prime Standard 19.4.0
+* Quartus Prime Standard 20.4.0
 * arm-linux-gnueabihf-
 * make
 * dtc
@@ -23,9 +23,10 @@ Requirements:
   <div style="page-break-after: always;"></div>
 
 ### Document Version
-* v2.0 - 02/22/21 - Updated Quartus Prime Standard 19.4.0
+* v2.1 - 05/18/22 - Updated Quartus Prime Standard 20.4.0
 
 #### Document History
+* ~~v2.0~~ - 02/22/21 - Updated Quartus Prime Standard 19.4.0
 * ~~v1.2~~ - 04/20/20 - Updated for hanpilot.
 * ~~v1.1~~ - 01/18/20 - Updated markdown formatting.
 * ~~v1.0~~ - 12/01/18 - Tested working version of the document.
