@@ -17,10 +17,9 @@ Requirements:
   <div style="page-break-after: always;"></div>
 
 ### Document Version
-* v1.3 - 06/18/22 - Updated ubuntu os version.
+* v1.2 - 01/25/20 - Updated convert root. Added extra root section.
 
 #### Document History
-* ~~v1.2~~ - 01/25/20 - Updated convert root. Added extra root section.
 * ~~v1.1~~ - 01/18/20 - Updated markdown formatting.
 * ~~v1.0~~ - 12/1/18 - ARM and ARM64 Instructions for Ubuntu
 * ~~v0.XX~~ Untested document version.

@@ -21,9 +21,10 @@ Requirements:
   <div style="page-break-after: always;"></div>
 
 ### Document Version
-* v1.2 - 01/18/20 - Updated markdown formatting, added packages for quartus.
+* v1.3 - 02/26/23 - Added Vivado hang bug info
 
 #### Document History
+* ~~v1.2~~ - 01/18/20 - Updated markdown formatting, added packages for quartus.
 * ~~v1.1~~ - 12/14/18 - Added openssl dev library to the packages list for apt-get.
 * ~~v1.0~~ - 12/01/18 - ARM and ARM64 Instructions for Ubuntu
 * ~~v0.XX~~ Untested document version.
@@ -225,6 +226,8 @@ Requirements:
 2. Startup your Ubuntu VirtualBox system (double click the Ubuntu System Icon in the machine listing).
 3. Once you have logged in to the system and loaded the desktop, open a terminal.
     - Navigate to your download of Vivado.
+    - sudo apt-get install libtinfo5 libncurses5
+      - this fixes the hang-up bug when installing
     - [Install per the instructions from Xilinx (UG973)](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug973-vivado-release-notes-install-license.pdf)
 4. Once the install is completed, add a path to your .bashrc.
     - nano ~/.bashrc

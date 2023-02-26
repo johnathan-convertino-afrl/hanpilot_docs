@@ -1,11 +1,11 @@
 # HOW TO... Create a sdcard.
 ## For: Terasic Hanpilot Arria 10 ARMHF
-### Author: John Convertino
+### Author: Jay Convertino
 
 This howto will explain the steps needed to put a sdcard together for the a10soc development board.
 
 Requirements:
-* Ubuntu 20.04 (recommened, can be done in other Linux based OS).
+* Ubuntu 18.04 (recommened, can be done in other Linux based OS).
 
 ### ROOTFS BOOTFS
 If you haven't, follow the other two howtos and create the files needed.
@@ -13,10 +13,9 @@ If you haven't, follow the other two howtos and create the files needed.
   <div style="page-break-after: always;"></div>
 
 ### Document Version
-* v1.3 - 05/18/22 - Update to ubuntu 20.04
+* v1.2 - 01/18/20 - Updated markdown formatting.
 
 #### Document History
-* ~~v1.2~~ - 01/18/20 - Updated markdown formatting.
 * ~~v1.1~~ - 12/12/18 - Added Rocketboards tweaks.
 * ~~v1.0~~ - 12/01/18 - ARM and ARM64 Instructions for Ubuntu
 * ~~v0.XX~~ Untested document version.

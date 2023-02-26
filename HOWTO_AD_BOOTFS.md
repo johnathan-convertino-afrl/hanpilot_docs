@@ -1,6 +1,6 @@
 # HOW TO... Create a boot file system for Analog Devices HDL
 ## For: Terasic Hanpilot Arria 10 ARMHF
-### Author: John Convertino
+### Author: Jay Convertino
 
 This howto will explain the steps needed to put a boot file system together for the Terasic Hanpilot development board.
 
@@ -15,7 +15,7 @@ Results:
 Requirements:
 
 * Ubuntu 20.04 (recommended, can be done in other Linux based OS).
-* Quartus Prime Standard 20.4.0
+* Quartus Prime Standard 19.4.0
 * arm-linux-gnueabihf-
 * make
 * dtc
@@ -23,9 +23,10 @@ Requirements:
   <div style="page-break-after: always;"></div>
 
 ### Document Version
-* v2.1 - 05/18/22 - Updated Quartus Prime Standard 20.4.0
+* v2.2 - 02/26/23 - Added adrv9009, fmcomms2/3
 
 #### Document History
+* ~~v2.1~~ - 05/18/22 - Updated Quartus Prime Standard 20.4.0
 * ~~v2.0~~ - 02/22/21 - Updated Quartus Prime Standard 19.4.0
 * ~~v1.2~~ - 04/20/20 - Updated for hanpilot.
 * ~~v1.1~~ - 01/18/20 - Updated markdown formatting.
@@ -78,9 +79,11 @@ Requirements:
 2. Enter the HDL repo
     - cd hdl
 3. Checkout the HDL repo that matches your version of vivado.
-    - git checkout master
+    - git checkout hdl_quartus_pro_2023_r1
 4. Build the project needed using make.
-    - make adrv9371x.hanpilot
+    - make adrv9371x.hanpilot (will be used in all examples)
+    - make adrv9009.hanpilot
+    - make fmcomms2.hanpilot
 5. Wait for make to finish executing the build.
 6. Navigate to projects/adrv9371x/hanpilot/output_files
     - cd projects/adrv9371x/hanpilot/output_files
@@ -132,7 +135,7 @@ Requirements:
 2. Enter the Linux Kernel Repo
     - cd linux
 3. Checkout the branch that matches your HDL version.
-    - git checkout master
+    - git checkout 2023_r1
 4. Set your cross compiler
     - export CROSS_COMPILE=arm-linux-gnueabihf-
 5. Set you architecture
@@ -151,7 +154,9 @@ Requirements:
 
 1. If you haven't built the kernel yet, follow the directions above in Build Linux Kernel.
 2. Generate the device tree binary.
-    - make socfpga_arria10_hanpilot_adrv9371.dtb
+    - make socfpga_arria10_hanpilot_adrv9371.dtb (will be used in all examples)
+    - make socfpga_arria10_hanpilot_adrv9009.dtb
+    - make socfpga_arria10_hanpilot_fmcomms2.dtb
 3. Copy and rename the device tree binary to the bootfs folder.
     - cp arch/arm/boot/dts/socfpga_arria10_hanpilot_adrv9371.dtb /path/to/your/bootfs/devicetree.dtb
 
