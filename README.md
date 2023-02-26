@@ -1,7 +1,7 @@
 # Hanpilot Documents
-## AUTHOR: Jay Convertino
+### AUTHOR: Jay Convertino
 
-### LICENSE
+## LICENSE
 ```
 License MIT
 
@@ -43,10 +43,10 @@ These work the the Hanpilot Arria 10 dev board and the SOCDK Arria 10 dev board.
 
 - Quartus Pro 20.4.X
 
-### DOCS
+### Documents
 
 - HOWTO_AD_BOOTFS.md : How to build all of the files needed for the boot file system partition.
 - HOWTO_INSTALL_UBUNTU_VIRT.md : How to put together a virtual box image (not recommended, docker would be a better way in this day and age).
-- HOWTO_CREATE_SDCARD.md : How to asseble all of the BOOTFS/ROOTFS files on the SDCARD.
+- HOWTO_CREATE_SDCARD.md : How to assemble all of the BOOTFS/ROOTFS files on the SDCARD.
 - HOWTO_ROOTFS.md : How to build the filesystem needed for the root file system partition.
 
